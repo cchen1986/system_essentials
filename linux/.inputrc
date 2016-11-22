@@ -1,0 +1,6 @@
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Enable Alt-arrows
+"\e[1;3D": forward-word
+"\e[1;3C": backward-word
