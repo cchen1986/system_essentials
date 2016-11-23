@@ -1,0 +1,17 @@
+[user]
+	name = chenchen
+	email = chenchen@deepmap.ai
+[color]
+	ui = auto
+[push]
+	default = simple
+[core]
+	editor = vim
+[remote "tomark"]
+    url = deepmap.review:deepmap
+    push = HEAD:refs/for/master%r=markwheeler@deepmap.ai,cc=eng@deepmap.ai
+[remote "toteam"]
+    url = deepmap.review:deepmap
+    push = HEAD:refs/for/master%r=markwheeler@deepmap.ai,r=linyang@deepmap.ai,r=chenchen@deepmap.ai,r=jameswu@deepmap.ai,r=liangzou@deepmap.ai,cc=eng@deepmap.ai
+[gitreview]
+	remote = origin
