@@ -24,6 +24,8 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'neomake/neomake'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/a.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'"
 "Plugin 'Shougo/deoplete.nvim'
 "Plugin 'zchee/deoplete-clang'
 "Plugin 'Shougo/neosnippet'
@@ -141,12 +143,6 @@ autocmd FileType html nnoremap <buffer><Leader>cf :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css nnoremap <buffer><Leader>cf :call CSSBeautify()<cr>
 
-" Vim easymotion
-" Bi-directional find motion
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-"nmap <C-s> <Plug>(easymotion-s)
-let g:EasyMotion_smartcase = 1
-
 " Ctrlp
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -210,9 +206,9 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 " tab conflict between ultisnips and youcompleteme
 "let g:UltiSnipsSnippetDirectories=["mysnippets"]
-"let g:UltiSnipsExpandTrigger="<Leader><tab>"
-"let g:UltiSnipsJumpForwardTrigger="<Leader><tab>"
-"let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
+let g:UltiSnipsExpandTrigger="<Leader><tab>"
+let g:UltiSnipsJumpForwardTrigger="<Leader><tab>"
+let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
 let g:indexer_ctagsCommandLineOptions="--c++-kinds=+l+p+x+c+d+e+f+g+m+n+s+t+u+v --fields=+iaSl --extra=+q"
 
@@ -336,3 +332,9 @@ set pastetoggle=<F10>
 
 nnoremap <leader>z :new<CR>:terminal<CR>source $HOME/.bash_profile<CR>
 tnoremap kj <C-\><C-n>
+
+" Vim easymotion
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+map <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)

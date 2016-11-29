@@ -138,12 +138,6 @@ autocmd FileType html nnoremap <buffer><Leader>cf :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css nnoremap <buffer><Leader>cf :call CSSBeautify()<cr>
 
-" Vim easymotion
-" Bi-directional find motion
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-"nmap <C-s> <Plug>(easymotion-s)
-let g:EasyMotion_smartcase = 1
-
 " Ctrlp
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -337,3 +331,9 @@ nnoremap <leader>z :vsp<CR>:terminal<CR>
 "source $HOME/.bashrc<CR>
 "nnoremap <leader>z <C-z>
 tnoremap kj <C-\><C-n>
+
+" Vim easymotion
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+map <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
