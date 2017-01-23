@@ -34,6 +34,10 @@ import fnmatch
 import logging
 import ycm_core
 
+HOME_DIRECTORY = '/home/chenchen'
+PROJECT_NAME = 'deepmap'
+WORK_PATH = '%s/CL/deepmap'
+
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
 # CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
@@ -64,37 +68,35 @@ BASE_FLAGS = [
 '-x',
 'c++',
 '-isystem',
-'/home/chenchen/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts',
+'%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts'%(HOME_DIRECTORY),
 '-isystem',
-'/home/chenchen/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/llvm/include',
+'%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/llvm/include'%(HOME_DIRECTORY),
 '-isystem',
-'/home/chenchen/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/llvm/include/clang-c',
+'%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/llvm/include/clang-c'%(HOME_DIRECTORY),
 '-isystem',
-'/home/chenchen/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ClangCompleter',
+'%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ClangCompleter'%(HOME_DIRECTORY),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-deepmap/external/eigen_archive/include/eigen3/',
+'%s/bazel-%s/external/eigen_archive/include/eigen3/'%(WORK_PATH,PROJECT_NAME),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-deepmap/external/precompiled_pcl/include/',
+'%s/bazel-%s/external/precompiled_pcl/include/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-deepmap/external/precompiled_g2o/include/',
+'%s/bazel-%s/external/protobuf_git/src/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-deepmap/external/protobuf_git/src/',
+'%s/bazel-%s/external/precompiled_flann/include/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-deepmap/external/precompiled_flann/include/',
+'%s/bazel-%s/external/gtest_git/googletest/include/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-deepmap/external/gtest_git/googletest/include/',
+'%s/bazel-%s/external/gtest_git/googlemock/include/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-deepmap/external/gtest_git/googlemock/include/',
+'%s/bazel-%s/external/glog_archive/include/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-deepmap/external/glog_archive/include/',
-'-isystem',
-'/home/chenchen/git/deepmap/bazel-genfiles/external/gflags_git/include/',
+'%s/bazel-genfiles/external/gflags_git/include/'%(WORK_PATH),
 '-I',
-'/home/chenchen/git/deepmap/',
+'%s'%(WORK_PATH),
 '-I',
-'/home/chenchen/git/deepmap/bazel-deepmap/',
+'%s/bazel-%s/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
-'/home/chenchen/git/deepmap/bazel-genfiles/',
+'%s/bazel-genfiles/'%(WORK_PATH),
 ]
 
 
