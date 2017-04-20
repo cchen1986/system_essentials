@@ -1,2 +1,7 @@
+# Using up and down arrows to search command history.
 "\e[A": history-search-backward
 "\e[B": history-search-forward
+
+# Use Alt + left/right arrow to jump through words.
+"\e[1;3D": forward-word
+"\e[1;3C": backward-word
