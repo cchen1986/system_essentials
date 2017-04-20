@@ -116,10 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. /home/chenchen/.local/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
+# Powerline
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+  source /usr/share/powerline/bindings/bash/powerline.sh
+fi
 
 # Alias for bazel
 alias b="bazel"

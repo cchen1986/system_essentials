@@ -1,0 +1,7 @@
+[core]
+	editor = nvim
+[user]
+	email = chenchen@deepmap.ai
+	name = chenchen
+[gitreview]
+	remote = origin
