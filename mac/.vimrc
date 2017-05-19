@@ -26,6 +26,11 @@ Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/a.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'"
+"Plugin 'Shougo/deoplete.nvim'
+"Plugin 'zchee/deoplete-clang'
+"Plugin 'Shougo/neosnippet'
+"Plugin 'Shougo/neosnippet-snippets'
+"Plugin 'honza/vim-snippets'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'MattesGroeger/vim-bookmarks'
@@ -215,7 +220,7 @@ nmap <Leader>tp :tprevious<CR>
 " Setup YouCompleteMe
 imap '<SPACE> <C-SPACE>
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 1
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
 set tags+=./.tags
 inoremap <Leader>; <C-x><C-o>
@@ -324,12 +329,8 @@ inoremap kj <Esc>
 autocmd BufWritePre * :%s/\s\+$//e
 set clipboard=unnamed
 set pastetoggle=<F10>
-set splitright
-set splitbelow
 
-nnoremap <leader>z :vsp<CR>:terminal<CR>
-"source $HOME/.bashrc<CR>
-"nnoremap <leader>z <C-z>
+nnoremap <leader>z :new<CR>:terminal<CR>source $HOME/.bash_profile<CR>
 tnoremap kj <C-\><C-n>
 
 " Vim easymotion
