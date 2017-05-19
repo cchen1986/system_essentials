@@ -20,7 +20,7 @@ export PATH="/usr/local/bin:$PATH"
 alias cmakeninja="cmake -GNinja .."
 
 alias mynotes="cd ~/Google\ Drive/notes && jupyter notebook"
-alias work="cd /Users/chenchen/git/deepmap/; git checkout dev"
+alias work="cd /Users/chenchen/git/deepmap-core/ && git status"
 #alias test="cd /Users/chenchen/git/mac-experimental"
 
 export HOMEBREW_GITHUB_API_TOKEN=b5b65ec774a49d613b6baa08cc6872d8e3deaab3
@@ -45,15 +45,28 @@ alias up3='cd .. && cd .. && cd ..'
 alias l='ls'
 alias ll='ls -lh'
 
-# Alias for Git
-alias g="git"
-alias gs="git status"
-alias gl="git log"
-alias vm="ssh -Y vm"
-alias t3="ssh -Y titan3"
-alias t3r="ssh -Y titan3-remote"
+# Alias for SSH
+alias t3="ssh -X titan3"
+alias t3r="ssh -X titan3-remote"
 alias t1="ssh -Y titan1"
 alias t1r="ssh -Y titan1-remote"
+alias t2="ssh -Y titan2"
+alias t2r="ssh -Y titan2-remote"
+
+# Alias for Git
+alias g="git"
+alias gb="git branch"
+alias gpull="git pull"
+alias gpush="git push"
+alias gs="git status"
+alias gl="git log"
+alias ga="git add"
+alias gc="git checkout"
+alias gr="git rebase"
+# Autocomplete for git commands
+__git_complete gc _git_checkout
+__git_complete gpull _git_pull
+__git_complete gpush _git_push
 
 #POWERLINE_PATH=~/Library/Python/2.7/lib/python/site-packages/powerline
 #source $POWERLINE_PATH/bindings/bash/powerline.sh
