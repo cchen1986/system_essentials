@@ -131,14 +131,29 @@ alias up2='cd .. && cd ..'
 alias up3='cd .. && cd .. && cd ..'
 alias l='ls'
 alias ll='ls -lh'
-alias work="cd /home/chenchen/git/deepmap/; git checkout dev"
+alias work="cd /home/chenchen/CL/deepmap-core/ && git status"
 alias vim="nvim"
 alias sc="screen -L"
 alias sn="screen -L -S"
 alias sl="screen -ls"
 alias sr="screen -d -r"
 
+# Alias for Git
+alias g="git"
+alias gb="git branch"
+alias gpull="git pull"
+alias gpush="git push"
+alias gs="git status"
+alias gl="git log"
+alias ga="git add"
+alias gc="git checkout"
+alias gr="git rebase"
+# Autocomplete for git commands
+__git_complete gc _git_checkout
+__git_complete gpull _git_pull
+__git_complete gpush _git_push
+
 # show screen info
 alias si="echo $STY"
 
-export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/bin:/usr/local/bin"
