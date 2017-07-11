@@ -30,14 +30,19 @@ Plugin 'gcmt/wildfire.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'MattesGroeger/vim-bookmarks'
 Plugin 'reedes/vim-lexical'
-Plugin 'rhysd/vim-clang-format'
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plugin 'google/vim-glaive'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'luochen1990/rainbow'
 Plugin 'othree/html5.vim'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'marijnh/tern_for_vim'
-Plugin 'helino/vim-json'
 
 " Project directory
 Plugin 'airblade/vim-rooter'
@@ -118,35 +123,36 @@ let g:bookmark_auto_save = 1
 let g:bookmark_auto_close = 1
 let g:bookmark_highlight_lines = 1
 
-let g:clang_format#code_style = "google"
-
 " map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-" Toggle auto formatting:
-nmap <Leader>C :ClangFormatAutoToggle<CR>
+nnoremap <Leader>cf :<C-u>FormatCode<CR>
+vnoremap <Leader>cf :FormatCode<CR>
 
-autocmd FileType javascript nnoremap <buffer><Leader>cf :call JsBeautify()<cr>
-" for json
-autocmd FileType json nnoremap <buffer><Leader>cf :call JsonBeautify()<cr>
-" for jsx
-autocmd FileType jsx nnoremap <buffer><Leader>cf :call JsxBeautify()<cr>
-" for html
-autocmd FileType html nnoremap <buffer><Leader>cf :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css nnoremap <buffer><Leader>cf :call CSSBeautify()<cr>
+" Vim easymotion
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+"nmap <C-s> <Plug>(easymotion-s)
+let g:EasyMotion_smartcase = 1
 
 " Ctrlp
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
+" Vim-vinegar
+"let g:netrw_banner = 0
+"let g:netrw_banner = 0
+"let g:netrw_liststyle = 3
+"let g:netrw_browse_split = 4
+"let g:netrw_altv = 1
+"let g:netrw_winsize = 25
+"augroup ProjectDrawer
+"    autocmd!
+"    autocmd VimEnter * :Vexplore
+"augroup END
+
 " Nerdtree tabs
 map <C-n> <plug>NERDTreeTabsToggle<CR>
 map <leader>f :NERDTreeFind<CR>
 
-let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
 let g:nerdtree_tabs_open_on_gui_startup=0
 let g:nerdtree_tabs_focus_on_files=1
@@ -222,6 +228,7 @@ inoremap <Leader>; <C-x><C-o>
 let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_show_diagnostics_ui = 0
+nnoremap <leader>gd :YcmCompleter GoToImprecise<CR>
 
 "" Vim indent
 "let g:indent_guides_enable_on_vim_startup=1
@@ -331,9 +338,3 @@ nnoremap <leader>z :vsp<CR>:terminal<CR>
 "source $HOME/.bashrc<CR>
 "nnoremap <leader>z <C-z>
 tnoremap kj <C-\><C-n>
-
-" Vim easymotion
-" Bi-directional find motion
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-map <Leader><Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)

@@ -35,8 +35,8 @@ import logging
 import ycm_core
 
 HOME_DIRECTORY = '/home/chenchen'
-PROJECT_NAME = 'deepmap'
-WORK_PATH = '%s/CL/deepmap'
+PROJECT_NAME = 'deepmap-core'
+WORK_PATH = '%s/CL/%s'%(HOME_DIRECTORY, PROJECT_NAME)
 
 # These are the compilation flags that will be used in case there's no
 # compilation database set (by default, one is not set).
@@ -76,13 +76,13 @@ BASE_FLAGS = [
 '-isystem',
 '%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ClangCompleter'%(HOME_DIRECTORY),
 '-isystem',
-'%s/bazel-%s/external/eigen_archive/include/eigen3/'%(WORK_PATH,PROJECT_NAME),
+'%s/bazel-%s/external/eigen_archive/linux/include/eigen3/'%(WORK_PATH,PROJECT_NAME),
 '-isystem',
 '%s/bazel-%s/external/precompiled_pcl/include/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
 '%s/bazel-%s/external/protobuf_git/src/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
-'%s/bazel-%s/external/precompiled_flann/include/'%(WORK_PATH, PROJECT_NAME),
+'%s/bazel-%s/external/precompiled_flann/linux/include/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
 '%s/bazel-%s/external/gtest_git/googletest/include/'%(WORK_PATH, PROJECT_NAME),
 '-isystem',
@@ -95,7 +95,7 @@ BASE_FLAGS = [
 '%s'%(WORK_PATH),
 '-I',
 '%s/bazel-%s/'%(WORK_PATH, PROJECT_NAME),
-'-isystem',
+'-I',
 '%s/bazel-genfiles/'%(WORK_PATH),
 ]
 
