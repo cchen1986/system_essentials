@@ -149,11 +149,9 @@ alias ga="git add"
 alias gc="git checkout"
 alias gr="git rebase"
 # Autocomplete for git commands
-__git_complete gc _git_checkout
-__git_complete gpull _git_pull
-__git_complete gpush _git_push
 
 # show screen info
 alias si="echo $STY"
 
-export PATH="$PATH:$HOME/bin:/usr/local/bin"
+export GOPATH=$HOME/go
+export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin"
