@@ -21,21 +21,21 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-endwise'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Valloric/YouCompleteMe'
-"Plugin 'neomake/neomake'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/a.vim'
-Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'"
-"Plugin 'Shougo/deoplete.nvim'
-"Plugin 'zchee/deoplete-clang'
-"Plugin 'Shougo/neosnippet'
-"Plugin 'Shougo/neosnippet-snippets'
-"Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'MattesGroeger/vim-bookmarks'
 Plugin 'reedes/vim-lexical'
-Plugin 'rhysd/vim-clang-format'
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plugin 'google/vim-glaive'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'luochen1990/rainbow'
 Plugin 'othree/html5.vim'
@@ -54,6 +54,9 @@ filetype on
 filetype plugin indent on    " required
 
 colorscheme jelleybeans
+
+" OSX backspace fix
+set backspace=indent,eol,start
 
 let g:mapleader=";" "Change leader to ;
 
@@ -126,22 +129,17 @@ let g:bookmark_highlight_lines = 1
 let g:clang_format#code_style = "google"
 
 " map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-" Toggle auto formatting:
-nmap <Leader>C :ClangFormatAutoToggle<CR>
+"autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+"autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+"" if you install vim-operator-user
+"autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+"" Toggle auto formatting:
+"nmap <Leader>C :ClangFormatAutoToggle<CR>
+"
 
-autocmd FileType javascript nnoremap <buffer><Leader>cf :call JsBeautify()<cr>
-" for json
-autocmd FileType json nnoremap <buffer><Leader>cf :call JsonBeautify()<cr>
-" for jsx
-autocmd FileType jsx nnoremap <buffer><Leader>cf :call JsxBeautify()<cr>
-" for html
-autocmd FileType html nnoremap <buffer><Leader>cf :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css nnoremap <buffer><Leader>cf :call CSSBeautify()<cr>
+" map to <Leader>cf in C++ code
+nnoremap <Leader>cf :<C-u>FormatCode<CR>
+vnoremap <Leader>cf :FormatCode<CR>
 
 " Ctrlp
 let g:ctrlp_working_path_mode = 'ra'
@@ -336,5 +334,19 @@ tnoremap kj <C-\><C-n>
 " Vim easymotion
 " Bi-directional find motion
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+"nmap <C-s> <Plug>(easymotion-s)
+"let g:EasyMotion_smartcase = 1
 map <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+augroup END

@@ -123,15 +123,16 @@ let g:bookmark_auto_save = 1
 let g:bookmark_auto_close = 1
 let g:bookmark_highlight_lines = 1
 
-" map to <Leader>cf in C++ code
-nnoremap <Leader>cf :<C-u>FormatCode<CR>
-vnoremap <Leader>cf :FormatCode<CR>
-
 " Vim easymotion
 " Bi-directional find motion
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 "nmap <C-s> <Plug>(easymotion-s)
 let g:EasyMotion_smartcase = 1
+let g:clang_format#code_style = "google"
+
+" Formater
+nnoremap <Leader>cf :<C-u>FormatCode<CR>
+vnoremap <Leader>cf :FormatCode<CR>
 
 " Ctrlp
 let g:ctrlp_working_path_mode = 'ra'
