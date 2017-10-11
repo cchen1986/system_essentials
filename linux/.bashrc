@@ -122,12 +122,12 @@ if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
 fi
 
 # Bazel functions
-function bb(){ bazel build $@; }
-function bbc(){ bazel build -c opt $@; }
-function br(){ bazel run $@;  }
-function brc(){ bazel run -c opt $@; }
-function bt(){ bazel test $@; }
-function btc(){ bazel test -c opt $@; }
+alias bb="bazel build"
+alias bbc="bazel build -c opt"
+alias br="bazel run"
+alias brc="bazel run -c opt"
+alias bt="bazel test"
+alias btc="bazel test -c opt"
 
 alias up='cd ..'
 alias up2='cd .. && cd ..'
