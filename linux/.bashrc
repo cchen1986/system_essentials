@@ -121,11 +121,14 @@ if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
   source /usr/share/powerline/bindings/bash/powerline.sh
 fi
 
-# Alias for bazel
-alias b="bazel"
-alias bt="bazel test"
-alias bb="bazel build"
-alias bbc="bazel build -c opt"
+# Bazel functions
+function bb(){ bazel build $@; }
+function bbc(){ bazel build -c opt $@; }
+function br(){ bazel run $@;  }
+function brc(){ bazel run -c opt $@; }
+function bt(){ bazel test $@; }
+function btc(){ bazel test -c opt $@; }
+
 alias up='cd ..'
 alias up2='cd .. && cd ..'
 alias up3='cd .. && cd .. && cd ..'
@@ -155,3 +158,4 @@ alias si="echo $STY"
 
 export GOPATH=$HOME/go
 export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin"
+export DATAPATH="/mnt/users/chenchen/data/"

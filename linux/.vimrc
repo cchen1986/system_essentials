@@ -123,16 +123,15 @@ let g:bookmark_auto_save = 1
 let g:bookmark_auto_close = 1
 let g:bookmark_highlight_lines = 1
 
+" map to <Leader>cf in C++ code
+nnoremap <Leader>cf :<C-u>FormatCode<CR>
+vnoremap <Leader>cf :FormatCode<CR>
+
 " Vim easymotion
 " Bi-directional find motion
 " Jump to anywhere you want with minimal keystrokes, with just one key binding.
 "nmap <C-s> <Plug>(easymotion-s)
 let g:EasyMotion_smartcase = 1
-let g:clang_format#code_style = "google"
-
-" Formater
-nnoremap <Leader>cf :<C-u>FormatCode<CR>
-vnoremap <Leader>cf :FormatCode<CR>
 
 " Ctrlp
 let g:ctrlp_working_path_mode = 'ra'
@@ -339,3 +338,15 @@ nnoremap <leader>z :vsp<CR>:terminal<CR>
 "source $HOME/.bashrc<CR>
 "nnoremap <leader>z <C-z>
 tnoremap kj <C-\><C-n>
+
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+augroup END
