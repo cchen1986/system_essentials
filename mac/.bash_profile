@@ -20,7 +20,7 @@ export PATH="/usr/local/bin:$PATH"
 alias cmakeninja="cmake -GNinja .."
 
 alias mynotes="cd ~/Google\ Drive/notes && jupyter notebook"
-alias work="cd /Users/chenchen/git/deepmap-core/ && git status"
+alias work="cd /Users/chenchen/git/deepmap-core-normal/ && git status"
 #alias test="cd /Users/chenchen/git/mac-experimental"
 
 export HOMEBREW_GITHUB_API_TOKEN=b5b65ec774a49d613b6baa08cc6872d8e3deaab3
@@ -33,11 +33,13 @@ export PATH="$PATH:$HOME/bin"
 alias login="aws ecr get-login"
 alias dk="docker run -it --rm -v /Users/chenchen:/root/user 776923679937.dkr.ecr.us-west-2.amazonaws.com/buildenv:latest"
 
-# Alias for bazel
-alias b="bazel"
-alias bt="bazel test"
+# Bazel functions
 alias bb="bazel build"
 alias bbc="bazel build -c opt"
+alias br="bazel run"
+alias brc="bazel run -c opt"
+alias bt="bazel test"
+alias btc="bazel test -c opt"
 
 alias up='cd ..'
 alias up2='cd .. && cd ..'
@@ -52,6 +54,10 @@ alias t1="ssh -Y titan1"
 alias t1r="ssh -Y titan1-remote"
 alias t2="ssh -Y titan2"
 alias t2r="ssh -Y titan2-remote"
+alias t0="ssh -X titan0"
+alias t0r="ssh -X titan0-remote"
+alias p="ssh -X proc"
+alias pr="ssh -X proc-remote"
 
 # Alias for Git
 alias g="git"
@@ -63,10 +69,6 @@ alias gl="git log"
 alias ga="git add"
 alias gc="git checkout"
 alias gr="git rebase"
-# Autocomplete for git commands
-__git_complete gc _git_checkout
-__git_complete gpull _git_pull
-__git_complete gpush _git_push
 
 #POWERLINE_PATH=~/Library/Python/2.7/lib/python/site-packages/powerline
 #source $POWERLINE_PATH/bindings/bash/powerline.sh
