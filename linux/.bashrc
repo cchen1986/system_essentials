@@ -159,3 +159,5 @@ alias si="echo $STY"
 export GOPATH=$HOME/go
 export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin"
 export DATAPATH="/mnt/users/chenchen/data/"
+
+alias size="du -sh"
