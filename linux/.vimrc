@@ -247,7 +247,7 @@ let g:indent_guides_guide_size=1
 :nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 " Tagbar
-nnoremap <Leader>tl :TagbarToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 let g:tagbar_compact=1
 
 " Rainbow parenthesis
