@@ -1,1 +1,1 @@
-build --spawn_strategy=standalone --genrule_strategy=standalone
+build --incompatible_disallow_set_constructor=false --spawn_strategy=standalone --genrule_strategy=standalone --per_file_copt=+.*\.cc,-(grpc_git|protos|gflags_git|gtest_git|com_google_protobuf)/.*@-Wsign-conversion
