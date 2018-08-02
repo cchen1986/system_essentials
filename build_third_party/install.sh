@@ -2,16 +2,7 @@
 
 CURRENT_DIR=`pwd`
 INSTALLATION_DIR=~/third_party/installation
-
-PACKAGE_NAME="Lemon Graph"
-PACKAGE_VERSIONED_DIR="lemon-1.3.1"
-PACKAGE_TARBALL="$PACKAGE_VERSIONED_DIR.tar.gz"
-PACKAGE_SOURCE="http://lemon.cs.elte.hu/pub/sources/$PACKAGE_TARBALL"
-LIB_NAME="libemon"
-INCLUDE_DIR="lemon"
-
-# If use_wget==true, will use wget to download the package. Otherwise, use git.
-use_wget=true
+PACKAGE_NAME="OpenCV"
 
 # Check OS
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
@@ -21,6 +12,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   OUTPUT_DIR=$CURRENT_DIR/mac
   echo "Building $PACKAGE_NAME on Mac."
 fi
+exit
 
 if [ ! -d $OUTPUT_DIR ]; then
     mkdir -p $OUTPUT_DIR
@@ -42,21 +34,26 @@ if [ ! -d $OUTPUT_DIR/lib ]; then
     mkdir -p $OUTPUT_DIR/lib
 fi
 
-# make a tmp folder for compiling the code.
 if [ ! -d tmp ]; then
   mkdir tmp
 fi
 
 # Get package
-if [ ! -d tmp/$PACKAGE_VERSIONED_DIR ]; then
+if [ ! -d tmp/opencv ]; then
     cd tmp
-    wget $PACKAGE_SOURCE
-    tar xzvf $PACKAGE_TARBALL
+    git clone https://github.com/opencv/opencv.git
     cd ..
 fi
 
-# Prepare the build folder.
-cd tmp/$PACKAGE_VERSIONED_DIR
+# Get opencv_contrib
+if [ ! -d tmp/opencv_contrib ]; then
+    cd tmp
+    git clone https://github.com/opencv/opencv_contrib.git
+    cd ..
+fi
+
+# Build Ceres
+cd tmp/opencv
 if [ -d build ]; then
     rm -rf build
     mkdir build && cd build
@@ -64,33 +61,35 @@ else
     mkdir build && cd build
 fi
 
-# Build the package
 export PATH=$INSTALLATION_DIR:$PATH
 cmake \
+  -DOPENCV_EXTRA_MODULES_PATH=$CURRENT_DIR/tmp/opencv_contrib/modules/ \
   -DBUILD_SHARED_LIBS:BOOL=OFF \
-  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_opencv_apps:BOOL=OFF \
+  -DCMAKE_BUILD_TYPE=release \
   -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=TRUE \
   -DBUILD_DOCS:BOOL=OFF \
-  -DLEMON_DOC_SOURCE_BROWSER=NO \
-  -DLEMON_DOC_USE_MATHJAX=NO \
+  -DWITH_LAPACK:BOOL=OFF \
+  -DWITH_OPENEXR:BOOL=OFF \
+  -DWITH_OPENCL:BOOL=OFF \
+  -DWITH_OPENCLAMDFFT:BOOL=OFF \
+  -DWITH_OPENCLAMDBLAS:BOOL=OFF \
+  -DWITH_VTK:BOOL=OFF \
+  -DWITH_GTK:BOOL=OFF \
+  -DWITH_CUDA:BOOL=OFF \
+  -DWITH_ITT:BOOL=OFF \
+  -DWITH_MATLAB:BOOL=OFF \
+  -DWITH_WEBP:BOOL=OFF \
   -DCMAKE_INSTALL_PREFIX=$INSTALLATION_DIR ..
 
 # Compile and Install
-make
-# make -j 8
+make -j 8
 make install
 
-# Remove existing lib.
-if [ -d $OUTPUT_DIR/lib/ ]; then
-  if [ "$(ls -A $OUTPUT_DIR/lib)" ]; then
-    rm $OUTPUT_DIR/lib/*
-  fi
-fi
-
-# Remove existing include files.
-if [ -d $OUTPUT_DIR/include/ ]; then
-  rm -rf $OUTPUT_DIR/include && mkdir $OUTPUT_DIR/include
-fi
-
-cp $INSTALLATION_DIR/lib/$LIB_NAME*.a $OUTPUT_DIR/lib/.
-cp -r $INSTALLATION_DIR/include/$INCLUDE_DIR $OUTPUT_DIR/include/.
+rm $OUTPUT_DIR/lib/*
+rm -rf $OUTPUT_DIR/include && mkdir $OUTPUT_DIR/include
+rm -rf $OUTPUT_DIR/3rdparty
+cp $INSTALLATION_DIR/lib/libopencv*.a $OUTPUT_DIR/lib/.
+cp -r $INSTALLATION_DIR/include/opencv $OUTPUT_DIR/include/.
+cp -r $INSTALLATION_DIR/include/opencv2 $OUTPUT_DIR/include/.
+cp -r $INSTALLATION_DIR/share/OpenCV/3rdparty $OUTPUT_DIR/.
