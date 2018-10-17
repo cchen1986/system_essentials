@@ -150,11 +150,5 @@ alias ga="git add"
 alias gc="git checkout"
 alias gr="git rebase"
 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
-
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.zsh"
 alias size="du -sh"
-#source /Users/chenchen/.bazel/bin/bazel-complete.bash
