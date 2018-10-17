@@ -39,65 +39,38 @@ import ycm_core
 # CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
 
 HOME_FOLDER = '/Users/chenchen'
-PROJ_NAME = 'mac-experimental'
+PROJ_NAME = 'deepmap-core'
 WORK_PATH = '%s/git/%s' % (HOME_FOLDER, PROJ_NAME)
 
 BASE_FLAGS = [
-'-Wall',
-'-Wextra',
-'-Werror',
-'-Wno-long-long',
-'-Wno-unused-variable',
-'-Wno-variadic-macros',
-'-fexceptions',
-'-ferror-limit=10000',
-'-DNDEBUG',
-# You 100% do NOT need -DUSE_CLANG_COMPLETER in your flags; only the YCM
-# source code needs it.
-'-DUSE_CLANG_COMPLETER',
-# THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know which
-# language to use when compiling headers. So it will guess. Badly. So C++
-# headers will be compiled as C headers. You don't want that so ALWAYS specify
-# a "-std=<something>".
-# For a C project, you would set this to something like 'c99' instead of
-# 'c++11'.
-'-std=c++11',
-# ...and the same thing goes for the magic -x option which specifies the
-# language that the files to be compiled are written in. This is mostly
-# relevant for c++ headers.
-# For a C project, you would set this to 'c' instead of 'c++'.
-'-x',
-'c++',
-'-isystem',
-'%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts'%HOME_FOLDER,
-'-isystem',
-'%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/llvm/include'%HOME_FOLDER,
-'-isystem',
-'%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/llvm/include/clang-c'%HOME_FOLDER,
-'-isystem',
-'%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ClangCompleter'%HOME_FOLDER,
-'-isystem',
-'%s/bazel-%s/external/eigen_archive/include/eigen3/'%(WORK_PATH, PROJ_NAME),
-'-isystem',
-'%s/bazel-%s/external/precompiled_pcl/include/'%(WORK_PATH, PROJ_NAME),
-'-isystem',
-'%s/bazel-%s/external/protobuf_git/src/'%(WORK_PATH, PROJ_NAME),
-'-isystem',
-'%s/bazel-%s/external/precompiled_flann/include/'%(WORK_PATH, PROJ_NAME),
-'-isystem',
-'%s/bazel-%s/external/gtest_git/googletest/include/'%(WORK_PATH, PROJ_NAME),
-'-isystem',
-'%s/bazel-%s/external/gtest_git/googlemock/include/'%(WORK_PATH, PROJ_NAME),
-'-isystem',
-'%s/bazel-%s/external/glog_archive/include/'%(WORK_PATH, PROJ_NAME),
-'-isystem',
-'%s/bazel-genfiles/external/gflags_git/include/'%(WORK_PATH),
-'-I',
-'%s/'%WORK_PATH,
-'-I',
-'%s/bazel-%s/'%(WORK_PATH, PROJ_NAME),
-'-isystem',
-'%s/bazel-genfiles/'%(WORK_PATH),
+    '-Wall',
+    '-Wextra',
+    '-Werror',
+    '-Wno-long-long',
+    '-Wno-unused-variable',
+    '-Wno-variadic-macros',
+    '-fexceptions',
+    '-ferror-limit=10000',
+    '-DNDEBUG',
+    # You 100% do NOT need -DUSE_CLANG_COMPLETER in your flags; only the YCM
+    # source code needs it.
+    '-DUSE_CLANG_COMPLETER',
+    # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know which
+    # language to use when compiling headers. So it will guess. Badly. So C++
+    # headers will be compiled as C headers. You don't want that so ALWAYS specify
+    # a "-std=<something>".
+    # For a C project, you would set this to something like 'c99' instead of
+    # 'c++11'.
+    '-std=c++11',
+    # ...and the same thing goes for the magic -x option which specifies the
+    # language that the files to be compiled are written in. This is mostly
+    # relevant for c++ headers.
+    # For a C project, you would set this to 'c' instead of 'c++'.
+    '-x',
+    'c++',
+    '-isystem',
+    '%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts' %
+    HOME_FOLDER,
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
@@ -110,25 +83,22 @@ BASE_FLAGS = [
 #
 # Most projects will NOT need to set this to anything; you can just change the
 # 'flags' list of compilation flags. Notice that YCM itself uses that approach.
-compilation_database_folder = ''
+compilation_database_folder = '%s//compile_commands.json' % WORK_PATH
 
-if os.path.exists( compilation_database_folder ):
-  database = ycm_core.CompilationDatabase( compilation_database_folder )
+if os.path.exists(compilation_database_folder):
+    database = ycm_core.CompilationDatabase(compilation_database_folder)
 else:
-  database = None
+    database = None
 
-SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]
+SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm']
 
-HEADER_EXTENSIONS = [
-    '.h',
-    '.hxx',
-    '.hpp',
-    '.hh'
-]
+HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh']
+
 
 def IsHeaderFile(filename):
     extension = os.path.splitext(filename)[1]
     return extension in HEADER_EXTENSIONS
+
 
 def GetCompilationInfoForFile(database, filename):
     if IsHeaderFile(filename):
@@ -136,29 +106,32 @@ def GetCompilationInfoForFile(database, filename):
         for extension in SOURCE_EXTENSIONS:
             replacement_file = basename + extension
             if os.path.exists(replacement_file):
-                compilation_info = database.GetCompilationInfoForFile(replacement_file)
+                compilation_info = database.GetCompilationInfoForFile(
+                    replacement_file)
                 if compilation_info.compiler_flags_:
                     return compilation_info
         return None
     return database.GetCompilationInfoForFile(filename)
 
+
 def FindNearest(path, target):
     candidate = os.path.join(path, target)
-    if(os.path.isfile(candidate) or os.path.isdir(candidate)):
+    if (os.path.isfile(candidate) or os.path.isdir(candidate)):
         logging.info("Found nearest " + target + " at " + candidate)
-        return candidate;
+        return candidate
     else:
-        parent = os.path.dirname(os.path.abspath(path));
-        if(parent == path):
-            raise RuntimeError("Could not find " + target);
+        parent = os.path.dirname(os.path.abspath(path))
+        if (parent == path):
+            raise RuntimeError("Could not find " + target)
         return FindNearest(parent, target)
+
 
 def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
     if not working_directory:
         return list(flags)
     new_flags = []
     make_next_absolute = False
-    path_flags = [ '-isystem', '-I', '-iquote', '--sysroot=' ]
+    path_flags = ['-isystem', '-I', '-iquote', '--sysroot=']
     for flag in flags:
         new_flag = flag
 
@@ -173,7 +146,7 @@ def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
                 break
 
             if flag.startswith(path_flag):
-                path = flag[ len(path_flag): ]
+                path = flag[len(path_flag):]
                 new_flag = path_flag + os.path.join(working_directory, path)
                 break
 
@@ -185,10 +158,12 @@ def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
 def FlagsForClangComplete(root):
     try:
         clang_complete_path = FindNearest(root, '.clang_complete')
-        clang_complete_flags = open(clang_complete_path, 'r').read().splitlines()
+        clang_complete_flags = open(clang_complete_path,
+                                    'r').read().splitlines()
         return clang_complete_flags
     except:
         return None
+
 
 def FlagsForInclude(root):
     try:
@@ -202,18 +177,21 @@ def FlagsForInclude(root):
     except:
         return None
 
+
 def FlagsForCompilationDatabase(root, filename):
     try:
         compilation_db_path = FindNearest(root, 'compile_commands.json')
         compilation_db_dir = os.path.dirname(compilation_db_path)
-        logging.info("Set compilation database directory to " + compilation_db_dir)
-        compilation_db =  ycm_core.CompilationDatabase(compilation_db_dir)
+        logging.info("Set compilation database directory to " +
+                     compilation_db_dir)
+        compilation_db = ycm_core.CompilationDatabase(compilation_db_dir)
         if not compilation_db:
             logging.info("Compilation database file found but unable to load")
             return None
         compilation_info = GetCompilationInfoForFile(compilation_db, filename)
         if not compilation_info:
-            logging.info("No compilation info for " + filename + " in compilation database")
+            logging.info("No compilation info for " + filename +
+                         " in compilation database")
             return None
         return MakeRelativePathsInFlagsAbsolute(
             compilation_info.compiler_flags_,
@@ -221,8 +199,9 @@ def FlagsForCompilationDatabase(root, filename):
     except:
         return None
 
+
 def FlagsForFile(filename):
-    root = os.path.realpath(filename);
+    root = os.path.realpath(filename)
     compilation_db_flags = FlagsForCompilationDatabase(root, filename)
     if compilation_db_flags:
         final_flags = compilation_db_flags
@@ -234,7 +213,4 @@ def FlagsForFile(filename):
         include_flags = FlagsForInclude(root)
         if include_flags:
             final_flags = final_flags + include_flags
-    return {
-        'flags': final_flags,
-        'do_cache': True
-    }
+    return {'flags': final_flags, 'do_cache': True}
