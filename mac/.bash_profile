@@ -45,7 +45,7 @@ alias btc="bazel test -c opt"
 # Bazel compilation database.
 RELEASE_VERSION=0.2.3
 alias download_bazel_autocomplete="curl -L https://github.com/grailbio/bazel-compilation-database/archive/${RELEASE_VERSION}.tar.gz | tar -xz"
-alias bazel_autocomplete="bazel-compilation-database-${RELEASE_VERSION}/generate.sh"
+alias bac="bazel-compilation-database-${RELEASE_VERSION}/generate.sh"
 
 alias up='cd ..'
 alias up2='cd .. && cd ..'
