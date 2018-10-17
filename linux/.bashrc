@@ -124,8 +124,8 @@ fi
 # Bazel functions
 alias bb="bazel build"
 alias bbc="bazel build -c opt"
-alias br="bazel run"
-alias brc="bazel run -c opt"
+alias br="bazel run --"
+alias brc="bazel run -c opt --"
 alias bt="bazel test"
 alias btc="bazel test -c opt"
 
@@ -140,6 +140,11 @@ alias sc="screen -L"
 alias sn="screen -L -S"
 alias sl="screen -ls"
 alias sr="screen -d -r"
+
+# Bazel compilation database.
+RELEASE_VERSION=0.2.3
+alias download_bazel_autocomplete="curl -L https://github.com/grailbio/bazel-compilation-database/archive/${RELEASE_VERSION}.tar.gz | tar -xz"
+alias bac="bazel-compilation-database-${RELEASE_VERSION}/generate.sh"
 
 # Alias for Git
 alias g="git"
@@ -157,7 +162,7 @@ alias gr="git rebase"
 alias si="echo $STY"
 
 export GOPATH=$HOME/go
-export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin"
-export DATAPATH="/mnt/users/chenchen/data/"
+export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin:/usr/bin"
+export ALIGNMENT_DIR="/mnt/users/chenchen/data/global_alignment"
 
 alias size="du -sh"
