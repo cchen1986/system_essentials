@@ -1,46 +1,14 @@
-# This file is NOT licensed under the GPLv3, which is the license for the rest
-# of YouCompleteMe.
-#
-# Here's the license text for this file:
-#
-# This is free and unencumbered software released into the public domain.
-#
-# Anyone is free to copy, modify, publish, use, compile, sell, or
-# distribute this software, either in source code form or as a compiled
-# binary, for any purpose, commercial or non-commercial, and by any
-# means.
-#
-# In jurisdictions that recognize copyright laws, the author or authors
-# of this software dedicate any and all copyright interest in the
-# software to the public domain. We make this dedication for the benefit
-# of the public at large and to the detriment of our heirs and
-# successors. We intend this dedication to be an overt act of
-# relinquishment in perpetuity of all present and future rights to this
-# software under copyright law.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-# IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-# OTHER DEALINGS IN THE SOFTWARE.
-#
-# For more information, please refer to <http://unlicense.org/>
-
 import os
 import os.path
 import fnmatch
 import logging
 import ycm_core
+import re
 
-# These are the compilation flags that will be used in case there's no
-# compilation database set (by default, one is not set).
-# CHANGE THIS LIST OF FLAGS. YES, THIS IS THE DROID YOU HAVE BEEN LOOKING FOR.
 
 HOME_FOLDER = '/Users/chenchen'
-PROJ_NAME = 'deepmap-core'
-WORK_PATH = '%s/git/%s' % (HOME_FOLDER, PROJ_NAME)
+DEEPMAP_CORE = os.path.join(HOME_FOLDER, "git/deepmap-core")
+DEEPMAP_BASE = os.path.join(HOME_FOLDER, "git/deepmap-base")
 
 BASE_FLAGS = [
     '-Wall',
@@ -48,51 +16,72 @@ BASE_FLAGS = [
     '-Werror',
     '-Wno-long-long',
     '-Wno-unused-variable',
+    '-Wno-unused-parameter',
     '-Wno-variadic-macros',
     '-fexceptions',
     '-ferror-limit=10000',
     '-DNDEBUG',
-    # You 100% do NOT need -DUSE_CLANG_COMPLETER in your flags; only the YCM
-    # source code needs it.
-    '-DUSE_CLANG_COMPLETER',
-    # THIS IS IMPORTANT! Without a "-std=<something>" flag, clang won't know which
-    # language to use when compiling headers. So it will guess. Badly. So C++
-    # headers will be compiled as C headers. You don't want that so ALWAYS specify
-    # a "-std=<something>".
-    # For a C project, you would set this to something like 'c99' instead of
-    # 'c++11'.
     '-std=c++11',
-    # ...and the same thing goes for the magic -x option which specifies the
-    # language that the files to be compiled are written in. This is mostly
-    # relevant for c++ headers.
-    # For a C project, you would set this to 'c' instead of 'c++'.
-    '-x',
-    'c++',
+    '-xc++',
+    # DeepMap Related
+    '-isystem', DEEPMAP_BASE,
+    '-isystem', DEEPMAP_CORE,
+    '-isystem', "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external",
+    '-isystem', "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/eigen_archive/mac/include/eigen3",
+    '-isystem', "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/com_google_protobuf/src",
     '-isystem',
-    '%s/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/BoostParts' %
-    HOME_FOLDER,
+    "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/libsvm_git",
+    '-isystem',
+    "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/gtest_git/googletest/include",
+    '-isystem',
+    "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/precompiled_ceres_solver/mac/include",
+    '-isystem',
+    "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/precompiled_lemon_graph/mac/include/",
+    '-isystem',
+    "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/aws_sdk_lib/mac/include",
+    '-isystem',
+    "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/precompiled_opencv/mac/include",
+    '-isystem',
+    "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/curl_lib/mac/include",
+    # '-isystem',
+    # "/Users/chenchen/git/deepmap-core/",
+    # '-isystem',
+    # "/Users/chenchen/git/deepmap-core/",
+    # '-isystem',
+    # "/Users/chenchen/git/deepmap-core/",
+    '-isystem',
+    "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/glog_archive/include/mac",
+    '-isystem',
+    "/Users/chenchen/git/deepmap-core/bazel-genfiles/external/deepmap_base",
+    # '-isystem', "/Users/chenchen/git/deepmap-core/bazel-deepmap-core/external/",
+    "-sysroot",
+    "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 ]
 
-# Set this to the absolute path to the folder (NOT the file!) containing the
-# compile_commands.json file to use that instead of 'flags'. See here for
-# more details: http://clang.llvm.org/docs/JSONCompilationDatabase.html
-#
-# You can get CMake to generate this file for you by adding:
-#   set( CMAKE_EXPORT_COMPILE_COMMANDS 1 )
-# to your CMakeLists.txt file.
-#
-# Most projects will NOT need to set this to anything; you can just change the
-# 'flags' list of compilation flags. Notice that YCM itself uses that approach.
-compilation_database_folder = '%s//compile_commands.json' % WORK_PATH
+SOURCE_EXTENSIONS = [
+    '.cpp',
+    '.cxx',
+    '.cc',
+    '.c',
+    '.m',
+    '.mm'
+]
 
-if os.path.exists(compilation_database_folder):
-    database = ycm_core.CompilationDatabase(compilation_database_folder)
-else:
-    database = None
+SOURCE_DIRECTORIES = [
+    'src',
+    'lib'
+]
 
-SOURCE_EXTENSIONS = ['.cpp', '.cxx', '.cc', '.c', '.m', '.mm']
+HEADER_EXTENSIONS = [
+    '.h',
+    '.hxx',
+    '.hpp',
+    '.hh'
+]
 
-HEADER_EXTENSIONS = ['.h', '.hxx', '.hpp', '.hh']
+HEADER_DIRECTORIES = [
+    'include'
+]
 
 
 def IsHeaderFile(filename):
@@ -104,26 +93,44 @@ def GetCompilationInfoForFile(database, filename):
     if IsHeaderFile(filename):
         basename = os.path.splitext(filename)[0]
         for extension in SOURCE_EXTENSIONS:
+            # Get info from the source files by replacing the extension.
             replacement_file = basename + extension
             if os.path.exists(replacement_file):
                 compilation_info = database.GetCompilationInfoForFile(
                     replacement_file)
                 if compilation_info.compiler_flags_:
                     return compilation_info
+            # If that wasn't successful, try replacing possible header directory with possible source directories.
+            for header_dir in HEADER_DIRECTORIES:
+                for source_dir in SOURCE_DIRECTORIES:
+                    src_file = replacement_file.replace(header_dir, source_dir)
+                    if os.path.exists(src_file):
+                        compilation_info = database.GetCompilationInfoForFile(
+                            src_file)
+                        if compilation_info.compiler_flags_:
+                            return compilation_info
         return None
     return database.GetCompilationInfoForFile(filename)
 
 
-def FindNearest(path, target):
+def FindNearest(path, target, build_folder):
     candidate = os.path.join(path, target)
-    if (os.path.isfile(candidate) or os.path.isdir(candidate)):
+    if(os.path.isfile(candidate) or os.path.isdir(candidate)):
         logging.info("Found nearest " + target + " at " + candidate)
         return candidate
-    else:
-        parent = os.path.dirname(os.path.abspath(path))
-        if (parent == path):
-            raise RuntimeError("Could not find " + target)
-        return FindNearest(parent, target)
+
+    parent = os.path.dirname(os.path.abspath(path))
+    if(parent == path):
+        raise RuntimeError("Could not find " + target)
+
+    if(build_folder):
+        candidate = os.path.join(parent, build_folder, target)
+        if(os.path.isfile(candidate) or os.path.isdir(candidate)):
+            logging.info("Found nearest " + target +
+                         " in build folder at " + candidate)
+            return candidate
+
+    return FindNearest(parent, target, build_folder)
 
 
 def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
@@ -158,8 +165,8 @@ def MakeRelativePathsInFlagsAbsolute(flags, working_directory):
 def FlagsForClangComplete(root):
     try:
         clang_complete_path = FindNearest(root, '.clang_complete')
-        clang_complete_flags = open(clang_complete_path,
-                                    'r').read().splitlines()
+        clang_complete_flags = open(
+            clang_complete_path, 'r').read().splitlines()
         return clang_complete_flags
     except:
         return None
@@ -180,7 +187,10 @@ def FlagsForInclude(root):
 
 def FlagsForCompilationDatabase(root, filename):
     try:
-        compilation_db_path = FindNearest(root, 'compile_commands.json')
+        # Last argument of next function is the name of the build folder for
+        # out of source projects
+        compilation_db_path = FindNearest(
+            root, 'compile_commands.json', 'build')
         compilation_db_dir = os.path.dirname(compilation_db_path)
         logging.info("Set compilation database directory to " +
                      compilation_db_dir)
@@ -190,8 +200,8 @@ def FlagsForCompilationDatabase(root, filename):
             return None
         compilation_info = GetCompilationInfoForFile(compilation_db, filename)
         if not compilation_info:
-            logging.info("No compilation info for " + filename +
-                         " in compilation database")
+            logging.info("No compilation info for " +
+                         filename + " in compilation database")
             return None
         return MakeRelativePathsInFlagsAbsolute(
             compilation_info.compiler_flags_,
@@ -213,4 +223,8 @@ def FlagsForFile(filename):
         include_flags = FlagsForInclude(root)
         if include_flags:
             final_flags = final_flags + include_flags
-    return {'flags': final_flags, 'do_cache': True}
+
+    return {
+        'flags': final_flags,
+        'do_cache': True
+    }
