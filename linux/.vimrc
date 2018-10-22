@@ -9,11 +9,11 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'chaoren/vim-wordmotion'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'tpope/vim-surround'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plugin 'itchyny/lightline.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'gerw/vim-latex-suite'
 Plugin 'Raimondi/delimitMate'
@@ -21,15 +21,13 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-endwise'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'Valloric/YouCompleteMe'
-"Plugin 'neomake/neomake'
 Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/a.vim'
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'"
+Plugin 'honza/vim-snippets'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'MattesGroeger/vim-bookmarks'
-Plugin 'reedes/vim-lexical'
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
 Plugin 'google/vim-maktaba'
@@ -179,32 +177,6 @@ let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" Use deoplete.
-"let g:deoplete#enable_at_startup = 1
-" deoplete tab-complete
-"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" Close the documentation window when completion is done
-"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-"let g:deoplete#sources#clang#libclang_path = "/usr/lib/x86_64-linux-gnu/libclang-3.8.so.1"
-"let g:deoplete#sources#clang#clang_header = "/usr/include/clang/"
-"let g:deoplete#sources#clang#flags = [
-"  \ "-cc1",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-deepmap/external/eigen_archive/include/eigen3/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-deepmap/external/precompiled_pcl/include/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-deepmap/external/precompiled_g2o/include/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-deepmap/external/protobuf_git/src/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-deepmap/external/precompiled_flann/include/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-deepmap/external/gtest_git/googletest/include/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-deepmap/external/gtest_git/googlemock/include/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-deepmap/external/glog_archive/include/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-genfiles/external/gflags_git/include/",
-"  \ "-I", "/home/chenchen/git/deepmap/alignment/",
-"  \ "-I", "/home/chenchen/git/deepmap/common/",
-"  \ "-I", "/home/chenchen/git/deepmap/bazel-deepmap/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-genfiles/",
-"  \ "-isystem", "/home/chenchen/git/deepmap/bazel-genfiles/",
-"  \]
-
 " tab conflict between ultisnips and youcompleteme
 "let g:UltiSnipsSnippetDirectories=["mysnippets"]
 let g:UltiSnipsExpandTrigger="<Leader><tab>"
@@ -221,20 +193,13 @@ nmap <Leader>tp :tprevious<CR>
 " Setup YouCompleteMe
 imap '<SPACE> <C-SPACE>
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 1
+let g:ycm_confirm_extra_conf = 0
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_extra_conf_vim_data=['&filetype']
 set tags+=./.tags
 inoremap <Leader>; <C-x><C-o>
 let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_show_diagnostics_ui = 0
-nnoremap <leader>gd :YcmCompleter GoToImprecise<CR>
-
-"" Vim indent
-"let g:indent_guides_enable_on_vim_startup=1
-"let g:indent_guides_start_level=2
-"let g:indent_guides_guide_size=1
-":nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 " Switch between cc and h
 nmap <Leader>ch :A<CR>
@@ -252,12 +217,6 @@ let g:tagbar_compact=1
 
 " Rainbow parenthesis
 let g:rainbow_active = 1
-
-" Neomake
-"let g:neomake_cpp_enabled_makers = ['clang']
-"let g:neomake_cpp_clang_maker = {
-"   \ 'exe': 'clang',
-"   \ }
 
 " Javascript
 let g:javascript_conceal_function   = "ƒ"
@@ -335,8 +294,6 @@ set splitright
 set splitbelow
 
 nnoremap <leader>z :vsp<CR>:terminal<CR>
-"source $HOME/.bashrc<CR>
-"nnoremap <leader>z <C-z>
 tnoremap kj <C-\><C-n>
 
 augroup autoformat_settings
@@ -347,6 +304,6 @@ augroup autoformat_settings
   autocmd FileType gn AutoFormatBuffer gn
   autocmd FileType html,css,json AutoFormatBuffer js-beautify
   autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType python AutoFormatBuffer autopep8
+  " Alternative:
 augroup END
