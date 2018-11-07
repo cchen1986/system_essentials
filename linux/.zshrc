@@ -128,13 +128,12 @@ alias gl="git log"
 alias ga="git add"
 alias gc="git checkout"
 alias gr="git rebase"
-# Autocomplete for git commands
 
 # show screen info
 alias si="echo $STY"
 
 export GOPATH=$HOME/go
-export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin"
+export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin:/usr/chenchen/.local/bin"
 export DATAPATH="/mnt/users/chenchen/data/"
 
 alias size="du -sh"
