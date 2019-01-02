@@ -103,7 +103,7 @@ alias python="python3"
 alias pip="pip3"
 
 alias mynotes="cd ~/Google\ Drive/notes && jupyter notebook --ip=127.0.0.1"
-alias work="cd /Users/chenchen/git/deepmap-core/ && git status"
+alias work="cd $HOME/CL/deepmap-core/ && git status"
 
 # Bazel functions
 alias bb="bazel build"
@@ -159,4 +159,5 @@ alias gr="git rebase"
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.zsh"
 alias size="du -sh"
 
-export PATH=$PATH:/Users/chenchen/bin
+export GOPATH=$HOME/go
+export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/.local/bin"
