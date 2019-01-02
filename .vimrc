@@ -221,9 +221,8 @@ let g:ycm_semantic_triggers =  {
            \ }
 
 " For echodoc. Showing function argument hint
-"set noshowmode
 let g:echodoc#enable_at_startup = 1
-set cmdheight=2
+set noshowmode
 
 " Switch between cc and h
 nmap <Leader>ch :A<CR>
