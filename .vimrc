@@ -170,9 +170,6 @@ let g:airline_powerline_fonts=1
 let g:airline_section_y = '%{substitute(getcwd(), expand("$HOME"), "~", "g")}'  "Set relative path
 let g:airline#extensions#tabline#enabled = 1
 
-" vim-signify to show git diff. Turn on.
-set signcolumn=yes
-
 " Vim rooter
 let g:rooter_patterns = ['Rakefile', '.git/', '.vimrc']
 let g:rooter_silent_chdir = 1
@@ -279,9 +276,6 @@ inoremap kj <Esc>
 autocmd BufWritePre * :%s/\s\+$//e
 set clipboard=unnamed
 set pastetoggle=<F10>
-
-nnoremap <leader>z :new<CR>:terminal<CR>source $HOME/.bash_profile<CR>
-tnoremap kj <C-\><C-n>
 
 " Vim easymotion
 " Bi-directional find motion
