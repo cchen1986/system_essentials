@@ -142,6 +142,8 @@ alias sc="screen -L"
 alias sn="screen -L -S"
 alias sl="screen -ls"
 alias sr="screen -d -r"
+# show screen info
+alias si="echo $STY"
 
 # Alias for Git
 alias g="git"
