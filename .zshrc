@@ -138,6 +138,11 @@ alias pr="ssh -X proc-remote"
 alias d="ssh -X depot3"
 alias sensor="ssh -X sensor"
 
+alias sc="screen -L"
+alias sn="screen -L -S"
+alias sl="screen -ls"
+alias sr="screen -d -r"
+
 # Alias for Git
 alias g="git"
 alias gb="git branch"
