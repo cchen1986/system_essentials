@@ -103,7 +103,7 @@ alias python="python3"
 alias pip="pip3"
 
 alias mynotes="cd ~/Google\ Drive/notes && jupyter notebook --ip=127.0.0.1"
-alias work="cd $HOME/CL/deepmap-core/ && git status"
+alias work="cd $HOME/git/deepmap-core/ && git status"
 
 # Bazel functions
 alias bb="bazel build"
@@ -112,11 +112,6 @@ alias br="bazel run --"
 alias brc="bazel run -c opt --"
 alias bt="bazel test"
 alias btc="bazel test -c opt"
-
-# Bazel compilation database.
-RELEASE_VERSION=0.2.3
-alias download_bazel_autocomplete="curl -L https://github.com/grailbio/bazel-compilation-database/archive/${RELEASE_VERSION}.tar.gz | tar -xz"
-alias bac="bazel-compilation-database-${RELEASE_VERSION}/generate.sh"
 
 alias up='cd ..'
 alias up2='cd .. && cd ..'
