@@ -17,8 +17,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'Yggdroot/LeaderF'
 
 " Autocompletion
-" Auto generate ctags
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'Valloric/YouCompleteMe'
 " Showing function argument hint
 Plug 'Shougo/echodoc.vim'
@@ -123,23 +121,6 @@ autocmd BufEnter * silent! :lcd%:p:h
 
 " Ctags configuration
 set tags=./.tags;,.tags
-
-" gutentags for auto tag generation
-" Whenever these folder or file names are found, iterate up till root.
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-" tag filename
-let g:gutentags_ctags_tagfile = '.tags'
-" Place generated tags under "~/.cache/tags" to avoid corrupting project
-" directory.
-let s:vim_tags = expand('~/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-" Check for ~/.cache/tags, if exists, do not compute tags.
-if !isdirectory(s:vim_tags)
-   silent! call mkdir(s:vim_tags, 'p')
-endif
 
 " LeaderF for file and function navigation
 let g:Lf_ShortcutF = '<c-p>'
