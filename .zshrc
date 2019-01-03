@@ -151,6 +151,8 @@ alias ga="git add"
 alias gc="git checkout"
 alias gr="git rebase"
 
+alias vim="nvim"
+
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.zsh"
 alias size="du -sh"
 
