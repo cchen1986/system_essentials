@@ -18,6 +18,7 @@ Plug 'Yggdroot/LeaderF'
 
 " Autocompletion
 Plug 'Valloric/YouCompleteMe'
+Plug 'ludovicchabant/vim-gutentags'
 " Showing function argument hint
 Plug 'Shougo/echodoc.vim'
 
@@ -119,9 +120,6 @@ set expandtab
 " ================ Auto commands ======================
 autocmd BufEnter * silent! :lcd%:p:h
 
-" Ctags configuration
-set tags=./.tags;,.tags
-
 " LeaderF for file and function navigation
 let g:Lf_ShortcutF = '<c-p>'
 let g:Lf_ShortcutB = '<m-n>'
@@ -130,7 +128,7 @@ noremap <c-f> :LeaderfFunction!<cr>
 noremap <c-n> :LeaderfBuffer<cr>
 noremap <m-m> :LeaderfTag<cr>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+"let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight = 0.30
 let g:Lf_CacheDirectory = expand('~/.vim/cache')
@@ -178,6 +176,18 @@ let g:nerdtree_tabs_autofind=1
 map <SPACE> <Plug>(wildfire-fuel)
 vmap <S-SPACE> <Plug>(wildfire-water)
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
+
+" Ctags configuration
+set tags=./.tags;,.tags
+let g:gutentags_ctags_tagfile = '.tags'
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
 
 " tab conflict between ultisnips and youcompleteme
 "let g:UltiSnipsSnippetDirectories=["mysnippets"]
