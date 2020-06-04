@@ -14,13 +14,14 @@ Plug 'chaoren/vim-wordmotion'
 
 " File display and navigation
 Plug 'scrooloose/nerdtree'
-Plug 'Yggdroot/LeaderF'
+Plug 'kien/ctrlp.vim'
 
 " Autocompletion
 Plug 'Valloric/YouCompleteMe'
-Plug 'ludovicchabant/vim-gutentags'
-" Showing function argument hint
-Plug 'Shougo/echodoc.vim'
+Plug 'zxqfl/tabnine-vim'
+
+"Plug 'zxqfl/tabnine-vim'
+Plug 'majutsushi/tagbar'
 
 " Comment
 Plug 'scrooloose/nerdcommenter'
@@ -63,7 +64,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'luochen1990/rainbow'
 
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'elzr/vim-json'
+"Plug 'elzr/vim-json'
 
 " Project directory
 Plug 'airblade/vim-rooter'
@@ -120,24 +121,6 @@ set expandtab
 " ================ Auto commands ======================
 autocmd BufEnter * silent! :lcd%:p:h
 
-" LeaderF for file and function navigation
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_ShortcutB = '<m-n>'
-"noremap <c-n> :LeaderfMru<cr>
-noremap <c-f> :LeaderfFunction!<cr>
-noremap <c-n> :LeaderfBuffer<cr>
-noremap <m-m> :LeaderfTag<cr>
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-"let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/cache')
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
-
-
 " Easy-align mapping
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
@@ -179,15 +162,6 @@ let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
 
 " Ctags configuration
 set tags=./.tags;,.tags
-let g:gutentags_ctags_tagfile = '.tags'
-let s:vim_tags = expand('~/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-if !isdirectory(s:vim_tags)
-   silent! call mkdir(s:vim_tags, 'p')
-endif
 
 " tab conflict between ultisnips and youcompleteme
 "let g:UltiSnipsSnippetDirectories=["mysnippets"]
@@ -195,21 +169,16 @@ let g:UltiSnipsExpandTrigger="<Leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<Leader><tab>"
 let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
 
-" YouCompleteMe for code completion
+" Setup YouCompleteMe
+imap '<SPACE> <C-SPACE>
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_collect_identifiers_from_tags_files = 1
+set tags+=./.tags
+inoremap <Leader>; <C-x><C-o>
+let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
-set completeopt=menu,menuone
-noremap <c-z> <NOP>
-let g:ycm_semantic_triggers =  {
-           \ 'c,cpp,python,java,go,erlang': ['re!\w{2}'],
-           \ 'cs,lua,javascript': ['re!\w{2}'],
-           \ }
 
 " For echodoc. Showing function argument hint
 set noshowmode
@@ -224,6 +193,10 @@ let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 :nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+
+" Tagbar
+nmap <F8> :TagbarToggle<CR>
+let g:tagbar_compact=1
 
 " Rainbow parenthesis
 let g:rainbow_active = 1
@@ -281,7 +254,7 @@ augroup autoformat_settings
   autocmd FileType dart AutoFormatBuffer dartfmt
   autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType html,css AutoFormatBuffer js-beautify
   autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer autopep8
 augroup END
