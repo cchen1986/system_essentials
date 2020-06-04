@@ -102,16 +102,16 @@ source $ZSH/oh-my-zsh.sh
 alias python="python3"
 alias pip="pip3"
 
-alias mynotes="cd ~/Google\ Drive/notes && jupyter notebook --ip=127.0.0.1"
+alias mynotes="cd ~/Dropbox/notes && jupyter notebook --ip=127.0.0.1"
 alias work="cd $HOME/git/deepmap-core/ && git status"
 
 # Bazel functions
-alias bb="bazel build"
+alias bb="bazel build "
 alias bbc="bazel build -c opt"
 alias br="bazel run --"
 alias brc="bazel run -c opt --"
-alias bt="bazel test"
-alias btc="bazel test -c opt"
+alias bt="bazel test --test_output=all"
+alias btc="bazel test -c opt --test_output=all"
 
 alias up='cd ..'
 alias up2='cd .. && cd ..'
@@ -146,15 +146,35 @@ alias gb="git branch"
 alias gpull="git pull"
 alias gpush="git push"
 alias gs="git status"
-alias gl="git log"
+alias gl="git log --pretty=format:'%C(auto)%H %ci %Cblue%<(12)%aN %Creset%s' --graph"
 alias ga="git add"
 alias gc="git checkout"
 alias gr="git rebase"
 
-alias vim="nvim"
-
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.zsh"
 alias size="du -sh"
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
 
 export GOPATH=$HOME/go
 export PATH="$PATH:$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/.local/bin"
+export PATH="$HOME/Library/Python/3.7/bin":$PATH
+export PATH="/usr/local/bin":$PATH
+export PATH="$HOME/git":$PATH
+export DEEPMAP_DATA_PATH="/Users/chenchen/data"
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+
+alias ManualViewer="cd $HOME/ManualAlignmentViewer; ./alignment/viewer/apps/manual_alignment_viewer/manual_alignment_viewer "
+alias SingleTrackViewer="cd $HOME/SingleTrackViewer; alignment/viewer/apps/manual_alignment/single_track_alignment/single_track_alignment_viewer "
+alias PointCloudViewer="cd $HOME/PointCloudViewer; cpp_viewer/apps/point_cloud_viewer/point_cloud_viewer "
+alias GpsViewer="cd $HOME/GpsViewer; cpp_viewer/apps/gps_imu_viewer/gps_imu_viewer "
+
+function iam_role() {
+    unset AWS_ACCESS_KEY_ID
+    unset AWS_SECRET_ACCESS_KEY
+    unset AWS_SESSION_TOKEN
+    command="python $HOME/git/deepmap-it/aws-deploy/tools/assume_role_helper.py --duration 28800 $1-AlignmentTeam"
+    eval "$(eval "$command")"
+}
+iam_role prod
