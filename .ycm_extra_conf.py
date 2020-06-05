@@ -64,46 +64,13 @@ BASE_FLAGS = [
     '-std=c++11',
     '-xc++',
     # DeepMap Related
+    '-isystem', DEEPMAP_CORE_DIR,
     '-isystem', DEEPMAP_BASE_DIR,
 
     # Subset of deepmap-core codes under BAZEL_DEEPMAP_CORE_DIR
     '-isystem', BAZEL_DEEPMAP_CORE_DIR,
 
-    # External code under BAZEL_DEEPMAP_CORE_DIR
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR, "external"),
-    # External libraries under bazel-deepmap-core
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/com_google_protobuf/src"),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/eigen_archive/%s/include/eigen3" % MACHINE_TYPE),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/libsvm_git"),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/gtest_git/googletest/include"),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/gtest_git/googlemock/include"),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/precompiled_ceres_solver/%s/include" % MACHINE_TYPE),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/precompiled_lemon_graph/%s/include" % MACHINE_TYPE),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/aws_sdk_lib/%s/include" % MACHINE_TYPE),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/precompiled_opencv/%s/include" % MACHINE_TYPE),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/curl_lib/%s/include" % MACHINE_TYPE),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/deepmap_base/third_party/cc/nanogui"),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/precompiled_assimp/%s/include" % MACHINE_TYPE),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/glog_archive/include/%s" % MACHINE_TYPE),
-    '-isystem', os.path.join(BAZEL_DEEPMAP_CORE_DIR,
-                             "external/precompiled_boost/%s/include/" % MACHINE_TYPE),
-
     # External libraries under bazel-genfiles
-    '-isystem', os.path.join(BAZEL_GENFILE_DIR,
-                             "external/gflags_git/include"),
     '-isystem', os.path.join(BAZEL_GENFILE_DIR,
                              "external/deepmap_base"),
 ]
